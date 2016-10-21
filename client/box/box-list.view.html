@@ -11,10 +11,37 @@
         <i class="material-icons" ng-if="box.data.visibility === 'unlisted'">lock_outline</i>
       </span>
       <span flex></span>
-      <md-button ng-if="!box.draggingEnabled" class="md-icon-button" aria-label="Move" ng-show="box.data.owner === main.user.name || main.user.isAdmin" ng-click="box.draggingEnabled = true">
+
+      <md-button ng-if="!box.draggingEnabled && !box.bulkEdit" class="md-icon-button" aria-label="Move" ng-show="box.data.owner === main.user.name || main.user.isAdmin" ng-click="box.draggingEnabled = true">
         <md-tooltip md-direction="left">Enable dragging to move Pokémon in this box</md-tooltip>
         <i class="material-icons">open_with</i>
       </md-button>
+
+      <md-button ng-if="!box.bulkEdit && !box.draggingEnabled" class="md-icon-button" aria-label="Move" ng-show="box.data.owner === main.user.name || main.user.isAdmin" ng-click="box.bulkEdit = true">
+        <md-tooltip md-direction="left">Bulk edit Pokémon</md-tooltip>
+        <i class="material-icons">edit</i>
+      </md-button>
+
+      <md-button ng-if="box.bulkEdit" class="md-icon-button" aria-label="Bulk Change Visibility" ng-show="box.data.owner === main.user.name || main.user.isAdmin" ng-click="box.bulkVisibility()">
+        <md-tooltip md-direction="left">Visibility</md-tooltip>
+        <i class="material-icons">visibility</i>
+      </md-button>
+
+      <md-button ng-if="box.bulkEdit" class="md-icon-button" aria-label="Bulk Move Box" ng-show="box.data.owner === main.user.name || main.user.isAdmin" ng-click="box.bulkMove()">
+        <md-tooltip md-direction="left">Move Box</md-tooltip>
+        <i class="material-icons">swap_horiz</i>
+      </md-button>
+
+      <md-button ng-if="box.bulkEdit" class="md-icon-button" aria-label="Bulk Delete" ng-show="box.data.owner === main.user.name || main.user.isAdmin" ng-click="box.bulkDelete()">
+        <md-tooltip md-direction="left">Delete</md-tooltip>
+        <i class="material-icons">delete</i>
+      </md-button>
+
+      <md-button ng-if="box.bulkEdit" class="md-icon-button" aria-label="Move" ng-show="box.data.owner === main.user.name || main.user.isAdmin" ng-click="box.bulkEdit = false">
+        <md-tooltip md-direction="left">Done editing Pokémon</md-tooltip>
+        <i class="material-icons">done</i>
+      </md-button>
+
       <md-button ng-if="box.draggingEnabled" class="md-icon-button" aria-label="Done" ng-show="box.data.owner === main.user.name || main.user.isAdmin" ng-click="box.draggingEnabled = false">
         <md-tooltip md-direction="left">Done moving Pokémon</md-tooltip>
         <i class="material-icons">done</i>
@@ -62,7 +89,7 @@
     sv-on-sort="box.movePkmn($item, $indexTo)"
   >
     <div flex-xs ng-repeat="pokemon in box.data.contents track by pokemon.id" sv-element>
-      <pokemon-card data="pokemon" ng-class="{'draggable': box.draggingEnabled}"></pokemon-card>
+      <pokemon-card data="pokemon" ng-class="{'draggable': box.draggingEnabled}" bulk-edit-mode="box.bulkEdit" selected-pokemon="box.editPokemon"></pokemon-card>
     </div>
     <md-progress-circular md-mode="indeterminate" ng-if="box.isLoading" md-diameter="100"></md-progress-circular>
   </div>

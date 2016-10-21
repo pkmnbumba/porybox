@@ -52,6 +52,8 @@ module.exports = class Box {
     this.isDeleted = false;
     this.isLoading = true;
     this.isFinished = false;
+    this.bulkEdit = false;
+    this.editPokemon = {};
     const scrollElement = document.getElementById('scroll-container');
     if ($routeParams.boxid) {
       this.onscroll = throttle(() => {
@@ -171,5 +173,14 @@ module.exports = class Box {
   movePkmn (pkmn, index) {
     return this.io.socket.postAsync(`/api/v1/pokemon/${pkmn.id}/move`, {box: this.id, index})
       .catch(this.errorHandler);
+  }
+  bulkDelete () {
+    // TODO: need a call for multiple delete
+  }
+  bulkMove () {
+    // TODO: need a call for multiple move
+  }
+  bulkVisibility () {
+    // TODO: need a call for multiple visibility modification
   }
 };
