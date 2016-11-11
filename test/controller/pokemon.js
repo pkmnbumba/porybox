@@ -494,7 +494,7 @@ describe('PokemonController', () => {
     it('does not leak internal properties of a a pokemon to the client', async () => {
       const pkmn = (await agent.get(`/api/v1/pokemon/${publicId}`)).body;
       expect(pkmn._markedForDeletion).to.not.exist();
-      expect(pkmn._rawPk6).to.not.exist();
+      expect(pkmn._rawPk).to.not.exist();
     });
     it('allows a list of fields to be specified as a query parameter', async () => {
       const res = await agent.get(`/api/v1/pokemon/${viewableId}`).query({
@@ -517,7 +517,7 @@ describe('PokemonController', () => {
     });
     it('does not leak internal properties of a pokemon if specified in the query', async () => {
       const res = await agent.get(`/api/v1/pokemon/${viewableId}`)
-        .query({pokemonFields: '_rawPk6'});
+        .query({pokemonFields: '_rawPk'});
       expect(res.statusCode).to.equal(200);
       expect(res.body).to.eql({});
     });

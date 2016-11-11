@@ -152,6 +152,7 @@ exports.createPokemonFromPk6 = async ({user, visibility, boxId, file}) => {
   parsed._boxVisibility = box.visibility;
   parsed.owner = user.name;
   parsed.visibility = visibility;
+  parsed.uploadGen = 6;
   return parsed;
 };
 

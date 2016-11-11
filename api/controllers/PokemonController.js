@@ -1,5 +1,5 @@
 module.exports = _.mapValues({
-  async uploadpk6 (req, res) {
+  async uploadpk (req, res) {
     const params = req.allParams();
     let visibility;
     if (params.visibility) {
@@ -33,7 +33,7 @@ module.exports = _.mapValues({
   },
 
   /**
-  * POST /pk6/multi
+  * POST /pokemon/multi
   * @param {Array} files
   * `files` must be an array of up to 50 elements, in the following format:
   * [
@@ -52,7 +52,7 @@ module.exports = _.mapValues({
   *   ...
   * ]
   */
-  async uploadMultiPk6 (req, res) {
+  async uploadMultiPk (req, res) {
     const files = req.param('files');
     if (!Array.isArray(files)) {
       return res.status(400).json('Invalid files array');
@@ -179,7 +179,7 @@ module.exports = _.mapValues({
       return res.forbidden();
     }
     res.attachment(`${pokemon.nickname}-${pokemon.id}.pk6`);
-    res.status(200).send(Buffer.from(pokemon._rawPk6, 'base64'));
+    res.status(200).send(Buffer.from(pokemon._rawPk, 'base64'));
     if (!userIsOwner && pokemon.visibility === 'public') {
       await pokemon.incrementDownloadCount();
     }

@@ -52,11 +52,11 @@ module.exports.routes = {
 
   // Pokemon
 
-  'post /api/v1/pokemon': 'PokemonController.uploadpk6',
-  'post /api/v1/pokemon/multi': 'PokemonController.uploadMultiPk6',
+  'post /api/v1/pokemon': 'PokemonController.uploadpk',
+  'post /api/v1/pokemon/multi': 'PokemonController.uploadMultiPk',
 
   'get /api/v1/pokemon/:id': 'PokemonController.get',
-  'get /api/v1/pokemon/:id/pk6': 'PokemonController.download',
+  'get /api/v1/pokemon/:id/pk': 'PokemonController.download',
   'delete /api/v1/pokemon/:id': 'PokemonController.delete',
   'post /api/v1/pokemon/:id/undelete': 'PokemonController.undelete',
   'post /api/v1/pokemon/:id/move': 'PokemonController.move',
